@@ -1,5 +1,5 @@
 # Ex.No: 03   COMPUTE THE AUTO FUNCTION(ACF)
-Date: 
+Date: 05-03-2024
 
 ### AIM:
 To Compute the AutoCorrelation Function (ACF) of the data for the first 35 lags to determine the model
@@ -11,33 +11,43 @@ type to fit the data.
 4. Store the results in an array
 5. Represent the result in graphical representation as given below.
 ### PROGRAM:
+```
+Developed by: Sai Eswar Kandukuri
+Register No: 212221240020
+```
+```
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
 import matplotlib.pyplot as plt
 
-import numpy as np
+data = [3, 16, 156, 47, 246, 176, 233, 140, 130, 101, 166, 201, 200, 116, 118, 247, 209, 52, 153, 232, 128, 27, 192, 168, 208, 187, 228, 86, 30, 151, 18, 254, 76, 112, 67, 244, 179, 150, 89, 49, 83, 147, 90, 33, 6, 158, 80, 35, 186, 127]
 
-data = [3, 16, 156, 47, 246, 176, 233, 140, 130,
-101, 166, 201, 200, 116, 118, 247,
-209, 52, 153, 232, 128, 27, 192, 168, 208,
-187, 228, 86, 30, 151, 18, 254,
-76, 112, 67, 244, 179, 150, 89, 49, 83, 147, 90,
-33, 6, 158, 80, 35, 186, 127]
+# Mean
+data_mean = np.mean(data)
 
-lags = range(35)
+# Variance
+data_var = np.var(data)
 
+# Normalized data
+normalized_data = (data - data_mean) / np.sqrt(data_var)
 
-#Pre-allocate autocorrelation table
+# Compute the autocorrelation function (ACF)
+acf_result = np.correlate(normalized_data, normalized_data, mode='full')
 
-#Mean
+# Take only the positive lags
+acf_result = acf_result[len(acf_result)//2:]
 
-#Variance
-
-#Normalized data
-
-#Go through lag components one-by-one
-
-#display the graph
-
+# Plot the ACF
+plt.figure(figsize=(10, 5))
+plt.stem(acf_result[:36], use_line_collection=True)
+plt.xlabel('Lag')
+plt.ylabel('Autocorrelation')
+plt.title('Autocorrelation Function (ACF)')
+plt.show()
+```
 ### OUTPUT:
+![img](https://github.com/saieswar1607/TSA_EXP3/assets/93427011/a622f1d2-47e0-4725-8238-43e842b09868)
 
 ### RESULT:
-        Thus we have successfully implemented the auto correlation function in python.
+Thus we have successfully implemented the auto correlation function in python.
